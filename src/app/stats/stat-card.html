@@ -1,0 +1,55 @@
+<div class="card">
+  <div class="card-body">
+    <div class="d-flex no-block">
+      <div class="m-r-20 align-self-center mobile">
+        <span class="lstick m-r-20"></span>
+        <img *ngIf="type === 'order'" src="../../assets/images/income.png">
+        <img *ngIf="type === 'sale'" src="../../assets/images/assets.png">
+      </div>
+      <div class="align-self-center inline-block">
+        <h5 class="text-highlight m-t-10">
+          <span *ngIf="type === 'order'"><a [routerLink]="['/orders']">Orders </a></span>
+          <span *ngIf="type === 'sale'"><a [routerLink]="['/orders']">Total Amount of Deliveries</a></span>
+        </h5>
+        <div *ngIf="type === 'order'" class="mobile-stat-block">
+          <p class="inline-block">
+            <span class="badge badge-danger">{{stat?.all}}</span>&nbsp;<strong>Total</strong>
+          </p>
+          <p class="inline-block">
+            <span class="pull-left"><span class="badge badge-success">{{stat?.deliveried}}</span>&nbsp;<strong>Deliveried</strong></span>
+            <span class="pull-right"><strong>On The Way</strong>&nbsp;<span class="badge badge-success">{{stat?.onTheWay}}</span></span>
+          </p>
+          <p class="inline-block">
+            <span class="pull-left"><span class="badge badge-info">{{stat?.pickedUp}}</span>&nbsp;<strong>Picked Up</strong></span>
+            <span class="pull-right"><strong>Processing</strong>&nbsp;<span class="badge badge-info">{{stat?.processing}}</span></span>
+          </p>
+          <p class="inline-block">
+            <span class="pull-left"><span class="badge badge-warning">{{stat?.postponed}}</span>&nbsp;<strong>Postponed</strong></span>
+            <span class="pull-right"><strong>Cancelled</strong>&nbsp;<span class="badge badge-warning">{{stat?.cancelled}}</span></span>
+          </p>
+        </div>
+
+        <div *ngIf="type === 'sale'" class="mobile-stat-block">
+          <p class="inline-block">
+            <span class="badge badge-danger no-wrap">{{stat?.balance | currency:'ZWK '}}</span>&nbsp;<strong>Settlement
+              Balance</strong>
+          </p>
+          <p class="inline-block">
+            <span class="badge badge-info no-wrap">{{stat?.commission | currency:'ZWK '}}</span>&nbsp;<strong>Service
+              Charge</strong>
+          </p>
+          <p class="inline-block">
+            <span class="badge badge-info no-wrap">{{stat?.totalOrder}}</span>&nbsp;<strong>Total Order</strong>
+          </p>
+          <p class="inline-block">
+            <span class="badge badge-warning no-wrap">{{stat?.totalPrice | currency:'ZWK '}}</span>&nbsp;<strong>Total
+              Price</strong>
+          </p>
+          <p class="inline-block">
+            <span class="badge badge-warning">{{stat?.totalProduct}}</span>&nbsp;<strong>Total Product</strong>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

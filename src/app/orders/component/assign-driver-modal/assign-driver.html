@@ -1,0 +1,34 @@
+<div class="modal-header">
+  <h4 class="modal-title" translate>Assign multiple orders to driver </h4>
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <form #frm="ngForm" (submit)="submit(frm)">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Driver</label>
+          <ng-select [items]="drivers" class="form-control" [loading]="isloading" (scrollToEnd)="onScrollToEnd()" name="drivers"
+            [closeOnSelect]="true" bindLabel="name" bindValue="_id" placeholder="Select driver" [(ngModel)]="params.driverId">
+          </ng-select>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Order Code</label>
+          <ng-select [items]="orderAssign" class="form-control" [multiple]="true" name="orders" bindLabel="label"
+            disabled placeholder="Select order" [(ngModel)]="params.orderTrackingCode">
+          </ng-select>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary">Submit</button>&nbsp;
+          <button class="btn btn-warning" type="button" (click)="activeModal.dismiss('Close')">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

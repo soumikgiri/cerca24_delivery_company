@@ -1,0 +1,310 @@
+<div class="heading-ttl">
+  <h3>Order</h3>
+</div>
+<div class="card">
+  <div class="card-body table-responsive">
+    <div class="row">
+      <div class="col-md-4">
+        <div class="input-group">
+          <span> From: </span>
+          &nbsp;
+          <input class="form-control" placeholder="yyyy-mm-dd" name="from" [(ngModel)]="dateFilter.startDate"
+            ngbDatepicker #a="ngbDatepicker">
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary fa fa-calendar" (click)="a.toggle()" type="button"></button>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="input-group">
+          <span> To: </span>
+          &nbsp;
+          <input class="form-control" placeholder="yyyy-mm-dd" name="to" [(ngModel)]="dateFilter.toDate" ngbDatepicker
+            #b="ngbDatepicker">
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary fa fa-calendar" (click)="b.toggle()" type="button"></button>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <button class="btn btn-info" (click)="exportOrder()"> Export Data </button>
+        <!-- &nbsp;
+        <button class="btn btn-warning" (click)="assignDriverModal()"> Assign Driver </button> -->
+      </div>
+    </div>
+    <br>
+    <table class="table table-custom">
+      <thead>
+        <tr>
+          <th>
+            <a (click)="sortBy('trackingCode', 'desc')">Code</a>
+            <span *ngIf="sortOption.sortBy === 'trackingCode'">
+              <a *ngIf="sortOption.sortType === 'desc'" class="fa fa-caret-down"
+                (click)="sortBy('trackingCode', 'asc')"></a>
+              <a *ngIf="sortOption.sortType === 'asc'" class="fa fa-caret-up"
+                (click)="sortBy('trackingCode', 'desc')"></a>
+            </span>
+          </th>
+          <!-- <th>
+            <a (click)="sortBy('email', 'desc')"> Email </a>
+            <span *ngIf="sortOption.sortBy === 'email'">
+              <a *ngIf="sortOption.sortType === 'desc'" class="fa fa-caret-down" (click)="sortBy('email', 'asc')"></a>
+              <a *ngIf="sortOption.sortType === 'asc'" class="fa fa-caret-up" (click)="sortBy('email', 'desc')"></a>
+            </span>
+          </th> -->
+          <!-- <th>
+            <a (click)="sortBy('streetAddress', 'desc')">Street Address</a>
+            <span *ngIf="sortOption.sortBy === 'streetAddress'">
+              <a *ngIf="sortOption.sortType === 'desc'" class="fa fa-caret-down" (click)="sortBy('streetAddress', 'asc')"></a>
+              <a *ngIf="sortOption.sortType === 'asc'" class="fa fa-caret-up" (click)="sortBy('streetAddress', 'desc')"></a>
+            </span>
+          </th> -->
+          <th>
+            <a> Category </a>
+          </th>
+          <th>
+            <a (click)="sortBy('driver.email', 'desc')"> Driver </a>
+            <span *ngIf="sortOption.sortBy === 'driver.email'">
+              <a *ngIf="sortOption.sortType === 'desc'" class="fa fa-caret-down"
+                (click)="sortBy('driver.email', 'asc')"></a>
+              <a *ngIf="sortOption.sortType === 'asc'" class="fa fa-caret-up"
+                (click)="sortBy('driver.email', 'desc')"></a>
+            </span>
+          </th>
+          <th colspan="4" class="text-center">
+            <a (click)="sortBy('firstName', 'desc')"> Customer </a>
+            <span *ngIf="sortOption.sortBy === 'firstName'">
+              <a *ngIf="sortOption.sortType === 'desc'" class="fa fa-caret-down"
+                (click)="sortBy('firstName', 'asc')"></a>
+              <a *ngIf="sortOption.sortType === 'asc'" class="fa fa-caret-up" (click)="sortBy('firstName', 'desc')"></a>
+            </span>
+          </th>
+          <th colspan="4" class="text-center">
+            <a (click)="sortBy('shopDetail.name', 'desc')"> Shop </a>
+            <span *ngIf="sortOption.sortBy === 'shopDetail.name'">
+              <a *ngIf="sortOption.sortType === 'desc'" class="fa fa-caret-down"
+                (click)="sortBy('shopDetail.name', 'asc')"></a>
+              <a *ngIf="sortOption.sortType === 'asc'" class="fa fa-caret-up"
+                (click)="sortBy('shopDetail.name', 'desc')"></a>
+            </span>
+          </th>
+          <th>
+            <a (click)="sortBy('productDetails.name', 'desc')">Product</a>
+            <span *ngIf="sortOption.sortBy === 'productDetails.name'">
+              <a *ngIf="sortOption.sortType === 'desc'" class="fa fa-caret-down"
+                (click)="sortBy('productDetails.name', 'asc')"></a>
+              <a *ngIf="sortOption.sortType === 'asc'" class="fa fa-caret-up"
+                (click)="sortBy('productDetails.name', 'desc')"></a>
+            </span>
+          </th>
+          <th>
+            <a (click)="sortBy('deliveryStatus', 'desc')"> Delivery Status </a>
+            <span *ngIf="sortOption.sortBy === 'deliveryStatus'">
+              <a *ngIf="sortOption.sortType === 'desc'" class="fa fa-caret-down"
+                (click)="sortBy('deliveryStatus', 'asc')"></a>
+              <a *ngIf="sortOption.sortType === 'asc'" class="fa fa-caret-up"
+                (click)="sortBy('deliveryStatus', 'desc')"></a>
+            </span>
+          </th>
+          <th>
+            <a (click)="sortBy('status', 'desc')"> Status </a>
+            <span *ngIf="sortOption.sortBy === 'status'">
+              <a *ngIf="sortOption.sortType === 'desc'" class="fa fa-caret-down" (click)="sortBy('status', 'asc')"></a>
+              <a *ngIf="sortOption.sortType === 'asc'" class="fa fa-caret-up" (click)="sortBy('status', 'desc')"></a>
+            </span>
+          </th>
+          <!-- <th>
+            <a (click)="sortBy('currency', 'desc')"> Currency </a>
+            <span *ngIf="sortOption.sortBy === 'currency'">
+              <a *ngIf="sortOption.sortType === 'desc'" class="fa fa-caret-down" (click)="sortBy('currency', 'asc')"></a>
+              <a *ngIf="sortOption.sortType === 'asc'" class="fa fa-caret-up" (click)="sortBy('currency', 'desc')"></a>
+            </span>
+          </th> -->
+          <!-- <th>
+            <a (click)="sortBy('userTaxPrice', 'desc')"> Tax Price</a>
+            <span *ngIf="sortOption.sortBy === 'userTaxPrice'">
+              <a *ngIf="sortOption.sortType === 'desc'" class="fa fa-caret-down" (click)="sortBy('userTaxPrice', 'asc')"></a>
+              <a *ngIf="sortOption.sortType === 'asc'" class="fa fa-caret-up" (click)="sortBy('userTaxPrice', 'desc')"></a>
+            </span>
+          </th> -->
+          <th>
+            <a (click)="sortBy('deliveryPrice', 'desc')"> Delivery Price </a>
+            <span *ngIf="sortOption.sortBy === 'deliveryPrice'">
+              <a *ngIf="sortOption.sortType === 'desc'" class="fa fa-caret-down"
+                (click)="sortBy('deliveryPrice', 'asc')"></a>
+              <a *ngIf="sortOption.sortType === 'asc'" class="fa fa-caret-up"
+                (click)="sortBy('deliveryPrice', 'desc')"></a>
+            </span>
+          </th>
+          <!-- <th>
+            <a (click)="sortBy('totalPrice', 'desc')"> Total Price </a>
+            <span *ngIf="sortOption.sortBy === 'totalPrice'">
+              <a *ngIf="sortOption.sortType === 'desc'" class="fa fa-caret-down" (click)="sortBy('totalPrice', 'asc')"></a>
+              <a *ngIf="sortOption.sortType === 'asc'" class="fa fa-caret-up" (click)="sortBy('totalPrice', 'desc')"></a>
+            </span>
+          </th> -->
+          <th>
+            <a (click)="sortBy('createdAt', 'desc')"> Created At </a>
+            <span *ngIf="sortOption.sortBy === 'createdAt'">
+              <a *ngIf="sortOption.sortType === 'desc'" class="fa fa-caret-down"
+                (click)="sortBy('createdAt', 'asc')"></a>
+              <a *ngIf="sortOption.sortType === 'asc'" class="fa fa-caret-up" (click)="sortBy('createdAt', 'desc')"></a>
+            </span>
+          </th>
+          <th>
+            <a> Actions </a>
+          </th>
+        </tr>
+        <tr>
+          <th colspan="3"></th>
+          <th>Name</th>
+          <th>Address</th>
+          <th>Area</th>
+          <th>City</th>
+          <th>Shop Name</th>
+          <th class="text-nowrap">Pick up Address</th>
+          <th>Area</th>
+          <th>City</th>
+          <th colspan="5"></th>
+          <th><button class="btn btn-warning" (click)="assignDriverModal()"> Assign Driver </button></th>
+        </tr>
+        <tr>
+          <th colspan="5"></th>
+          <th class="mw-150">
+            <select class="form-control" [(ngModel)]="searchFields.state" name="customerArea" #customerArea="ngModel">
+              <option value="">All area</option>
+              <option *ngFor="let area of citySelected.ofUser.areas" [value]="area">{{area}}</option>
+            </select>
+          </th>
+          <th class="mw-150">
+            <select class="form-control" [(ngModel)]="searchFields.city" required name="customerCity"
+              #customerCity="ngModel" (change)="changeCity(searchFields.city, 'user')">
+              <option value="">All city</option>
+              <option *ngFor="let item of cities" [value]="item.name">{{item?.name}}</option>
+            </select>
+          </th>
+          <th class="mw-200">
+            <input type="text" name="seller" class="form-control" [class.is-invalid]="searchFailed" [(ngModel)]="seller"
+              [ngbTypeahead]="search" placeholder="Search shop" [resultTemplate]="rt" [inputFormatter]="formatter" />
+            <span *ngIf="searching">searching...</span>
+            <div class="invalid-feedback" *ngIf="searchFailed">Sorry, suggestions could not be loaded.</div>
+            <ng-template #rt let-r="result" let-t="term">
+              <ngb-highlight [result]="r.name" [term]="t"></ngb-highlight>&nbsp;
+              <small>({{r?.owner?.name ? r.owner.name : 'N/A'}})</small>
+            </ng-template>
+          </th>
+          <th></th>
+          <th class="mw-150">
+            <select class="form-control" [(ngModel)]="searchFields['pickUpAddressObj.area']" name="customerArea"
+              #customerArea="ngModel">
+              <option value="">All area</option>
+              <option *ngFor="let area of citySelected.ofSeller.areas" [value]="area">{{area}}</option>
+            </select>
+          </th>
+          <th class="mw-150">
+            <select class="form-control" [(ngModel)]="searchFields['pickUpAddressObj.city']" required
+              name="customerCity" #customerCity="ngModel"
+              (change)="changeCity(searchFields['pickUpAddressObj.city'], 'seller')">
+              <option value="">All city</option>
+              <option *ngFor="let item of cities" [value]="item.name">{{item?.name}}</option>
+            </select>
+          </th>
+          <th></th>
+          <th class="mw-150">
+            <select class="form-control" [(ngModel)]="searchFields.deliveryStatus" name="deliveryStatus">
+              <option value="">ALL</option>
+              <option value="deliveried">Deliveried</option>
+              <option value="processing">Processing</option>
+              <option value="pickedUp">Picked Up</option>
+              <option value="onTheWay">On the way</option>
+              <option value="cancelled">Cancelled</option>
+              <option value="postponed">Postponed</option>
+            </select>
+          </th>
+          <th class="mw-150">
+            <select [(ngModel)]="searchFields.status" class="form-control" name="status">
+              <option value="">ALL</option>
+              <option value="completed">Completed</option>
+              <option value="progressing">Ready To Pick Up</option>
+              <option value="shipping">Shipping</option>
+              <option value="pending">Pending</option>
+              <option value="refunded">Refunded</option>
+              <option value="cancelled">Cancelled</option>
+            </select>
+          </th>
+          <th colspan="2"></th>
+          <th>
+            <button class="btn btn-primary" (click)="query()"> Filter </button>
+            <!-- <button class="btn btn-info" (click)="assignDriverModal()"> Assign Driver </button> -->
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let order of orders; let i = index">
+          <td>
+            <a [routerLink]="[ '/orders/details', order?._id ]">{{order?.trackingCode}}</a>
+          </td>
+          <!-- <td>{{order?.streetAddress + ' ' + order?.state + ' ' + order?.city + ' ' + order?.country}}</td> -->
+          <td>
+            <span *ngIf="order.deliveryCategory && order.deliveryCategory.name">{{order?.deliveryCategory?.name}}</span>
+            <span *ngIf="!order.deliveryCategory || !order.deliveryCategory.name"
+              class="text-muted"><small>N/A</small></span>
+          </td>
+          <td class="mw-150">
+            <span *ngIf="order.driver && order.driver.email">{{order?.driver?.email}}</span>
+            <span *ngIf="!order.driver || !order.driver.email" class="text-muted"><small>No Driver
+                Assigned</small></span>
+          </td>
+          <td class="text-nowrap">{{order?.firstName}} {{order?.lastName}}</td>
+          <td class="mw-200">{{order?.streetAddress}}</td>
+          <td>{{order?.state}}</td>
+          <td>{{order?.city}}</td>
+          <td class="text-nowrap mw-200">{{order?.shopDetail?.name}}</td>
+          <td class="mw-200">{{order?.pickUpAddressObj?.street}}</td>
+          <td>{{order?.pickUpAddressObj?.area}}</td>
+          <td>{{order?.pickUpAddressObj?.city}}</td>
+          <td class="mw-200">{{order?.productDetails.name}}</td>
+          <td>
+            <span class="badge badge-success" *ngIf="order?.deliveryStatus === 'deliveried'">Deliveried</span>
+            <span class="badge badge-primary" *ngIf="order?.deliveryStatus === 'onTheWay'">On The Way</span>
+            <span class="badge badge-warning" *ngIf="order?.deliveryStatus === 'pickedUp'">Picked Up</span>
+            <span class="badge badge-info" *ngIf="order?.deliveryStatus === 'processing'">Processing</span>
+            <span class="badge badge-warning" *ngIf="order?.deliveryStatus === 'postponed'">Postponed</span>
+            <span class="badge badge-danger" *ngIf="order?.deliveryStatus === 'cancelled'">Cancelled</span>
+          </td>
+          <td>
+            <span class="badge badge-success" *ngIf="order?.status === 'completed'">Completed</span>
+            <span class="badge badge-primary" *ngIf="order?.status === 'shipping'">Shipping</span>
+            <span class="badge badge-warning" *ngIf="order?.status === 'pending'">Pending</span>
+            <span class="badge badge-info" *ngIf="order?.status === 'progressing'">Ready To Pick Up</span>
+            <span class="badge badge-warning" *ngIf="order?.status === 'refunded'">Refunded</span>
+            <span class="badge badge-danger" *ngIf="order?.status === 'cancelled'">Cancelled</span>
+          </td>
+          <!-- <td><span class="badge badge-danger">{{order?.currency}}</span></td> -->
+          <!-- <td class="mw-100">{{order?.userTaxPrice.toFixed(2) | currency:'ZWK '}}</td> -->
+          <td class="mw-100">{{order?.deliveryPrice.toFixed(2) | currency:'ZWK '}}</td>
+          <!-- <td class="mw-100">{{order?.totalPrice.toFixed(2) | currency:'ZWK '}}</td> -->
+          <td class="mw-150">{{order?.createdAt | date: 'short'}}</td>
+          <td>
+            <a [routerLink]="[ '/orders/details', order?._id ]"> <i class="fa fa-pencil"></i></a>&nbsp;
+            <label class="checkbox" *ngIf="!order.driverId && !order.driver">
+              <input type="checkbox" (change)="getOrderId(order, i)">
+              <span class="cr"><i class="cr-icon fa fa-check"></i></span>
+            </label>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="text-center">
+      <span class="badge badge-warning" *ngIf="!orders.length && !isLoading">No items found</span>
+      <span class="badge badge-warning" *ngIf="isLoading">Loading...</span>
+    </div>
+  </div>
+</div>
+<div class="my-3" [hidden]="total < 10">
+  <div class="pull-right">
+    <ngb-pagination class="inline-block" [collectionSize]="total" [(page)]="page" [maxSize]="take"
+      (pageChange)="query()">
+    </ngb-pagination>
+  </div>
+</div>

@@ -1,0 +1,24 @@
+<div class="logo-mid" *ngIf="!isLoggin">
+  <img [src]="logoUrl" *ngIf="logoUrl" width="300px">
+</div>
+<div class="px-3 py-3 pt-md-5 pb-md-4 mx-auto">
+  <div class="text-center" *ngIf="!isLoggin">
+    <!-- <h1 class="display-4">HELLO</h1>
+    <p class="lead">This is starter page</p> -->
+    <div class="button-inline">
+      <a class="btn btn-primary float-left" [routerLink]="['/auth/login']">Sign in</a>
+      <a class="btn btn-info float-right" [routerLink]="['/auth/signup']">Register</a>
+    </div>
+  </div>
+  <div class="row" *ngIf="isLoggin">
+    <div class="heading-ttl col-md-12">
+      <h3>Dashboard</h3>
+    </div>
+    <div class="col-md-6">
+      <stat-card [type]="'order'" [stat]="orderStat"></stat-card>
+    </div>
+    <div class="col-md-6">
+      <stat-card [type]="'sale'" [stat]="saleStat"></stat-card>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,268 @@
+<!-- <div class="logo-mid">
+  <img [src]="logoUrl" *ngIf="logoUrl" width="200px">
+</div>
+<div class="row row-detail-main justify-content-center">
+  <div class="col-md-6">
+    <div class="card">
+      <header class="card-header">
+        <a [routerLink]="['/auth/login']" class="float-right">Log in</a>
+        <h4 class="card-title mt-2">Register</h4>
+      </header>
+      <article class="card-body">
+        <form #frm="ngForm" (submit)="submit(frm)">
+          <div class="form-group">
+            <label>Name (*)</label>
+            <input type="text" class="form-control" placeholder="" required #name="ngModel" name="name" [(ngModel)]="account.name" />
+            <div *ngIf="name.errors && (name.dirty || name.touched || submitted)">
+              <p [hidden]="!name.errors.required" class="error">
+                Name is required
+              </p>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Email address (*)</label>
+            <input type="text" class="form-control" placeholder="" #email="ngModel" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" name="email" required [(ngModel)]="account.email" />
+            <small class="form-text text-muted">We'll never share your email with anyone else.</small>
+            <div *ngIf="email.errors && (email.dirty || email.touched || submitted)">
+              <p [hidden]="!email.errors.required" class="error">
+                Email is required
+              </p>
+              <p [hidden]="!email.errors.pattern" class="error">
+                Email is invalid format
+              </p>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Password (*)</label>
+            <input type="password" class="form-control" placeholder="" [minlength]="6" #password="ngModel" required name="password" [(ngModel)]="account.password" />
+            <div *ngIf="password.errors && (password.dirty || password.touched || submitted)">
+              <p [hidden]="!password.errors.minlength" class="error">
+                Password must be from 6 characters length
+              </p>
+              <p [hidden]="!password.errors.required" class="error">
+                Password is required
+              </p>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Address (*)</label>
+            <input type="text" class="form-control" placeholder="" required name="address" #address="ngModel" [(ngModel)]="account.address" />
+            <div *ngIf="address.errors && (address.dirty || address.touched || submitted)">
+              <p [hidden]="!address.errors.required" class="error">
+                Address is required
+              </p>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label>City (*)</label>
+                <input type="text" class="form-control" placeholder="" name="city" #city="ngModel" [(ngModel)]="account.city" required />
+                <div *ngIf="city.errors && (city.dirty || city.touched || submitted)">
+                  <p [hidden]="!city.errors.required" class="error">
+                    City is required
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label>State (*)</label>
+                <input type="text" class="form-control" placeholder="" name="state" #state="ngModel" [(ngModel)]="account.state" required />
+                <div *ngIf="state.errors && (state.dirty || state.touched || submitted)">
+                  <p [hidden]="!state.errors.required" class="error">
+                    State is required
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Country (*)</label>
+            <input type="text" class="form-control" placeholder="" name="country" [(ngModel)]="account.country" #country="ngModel" required />
+            <div *ngIf="country.errors && (country.dirty || country.touched || submitted)">
+              <p [hidden]="!country.errors.required" class="error">
+                Country is required
+              </p>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Phone Number (*)</label>
+            <input type="text" class="form-control" placeholder="" required name="phoneNumber" #phone="ngModel" [(ngModel)]="account.phoneNumber" />
+            <div *ngIf="phone.errors && (phone.dirty || phone.touched || submitted)">
+              <p [hidden]="!phone.errors.required" class="error">
+                Phone Number is required
+              </p>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Issue Document (*)</label>
+            <file-upload [options]="issueOptions"></file-upload>
+          </div>
+
+          <div class="form-group">
+            <label>&nbsp;</label>
+            <button class="btn btn-primary" type="submit">Submit</button>
+          </div>
+        </form>
+      </article>
+    </div>
+  </div>
+</div> -->
+
+<!-- <div class="login-box card register-box"> -->
+<div class="logo-mid">
+  <img [src]="logoUrl" width="200px">
+</div>
+<div class="card-body container">
+  <form class="form-horizontal form-material" (submit)="submit(frm)" #frm="ngForm">
+    <h3 class="box-title m-b-20 text-center">Register delivery company</h3>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Company Name</label>
+          <input class="form-control" required type="text" autocomplete="off" name="name" [(ngModel)]="account.name"
+            #name="ngModel" />
+          <div *ngIf="name.errors && (name.dirty || name.touched || submitted)">
+            <p [hidden]="!name.errors.required" class="error">
+              Name is required
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Email Address</label>
+          <input class="form-control" required type="email" autocomplete="off" name="email" pattern="[A-Za-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
+            [(ngModel)]="account.email" #email="ngModel" />
+          <div *ngIf="email.errors && (email.dirty || email.touched || submitted)">
+            <p [hidden]="!email.errors.required" class="error">
+              Email is required
+            </p>
+            <p [hidden]="!email.errors?.pattern" class="error">
+              Email is invalid email address.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Password</label>
+          <input class="form-control" required type="password" autocomplete="off" name="pw" [(ngModel)]="account.password"
+            #password="ngModel" />
+          <div *ngIf="password.errors && (password.dirty || password.touched || submitted)">
+            <p [hidden]="!password.errors.required" class="error">
+              Password is required
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Mobile Number</label>
+          <div class="input-group">
+            <dial-code (selectCode)="selectDial($event)"></dial-code>
+            <input class="form-control" required type="text" pattern="[0-9]{9,10}" (change)="inputPhone()" autocomplete="off"
+              name="phoneNumber" [(ngModel)]="phone.number" #phoneNumber="ngModel" />
+          </div>
+          <div *ngIf="phoneNumber.errors && (phoneNumber.dirty || phoneNumber.touched || submitted)">
+            <p [hidden]="!phoneNumber.errors.required" class="error">
+              Mobile number is required
+            </p>
+            <p [hidden]="!phoneNumber.errors.pattern" class="error">
+              Please enter 9 or 10 digits number
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Street Address</label>
+          <input class="form-control" required type="text" autocomplete="off" name="address" [(ngModel)]="account.address"
+            #address="ngModel" />
+          <div *ngIf="address.errors && (address.dirty || address.touched || submitted)">
+            <p [hidden]="!address.errors.required" class="error">
+              Street address is required
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6" *ngIf="citySelected.areas && citySelected.areas.length">
+        <div class="form-group">
+          <label>Area</label>
+          <select class="form-control" required name="area" [(ngModel)]="city.area" #area="ngModel">
+            <option *ngFor="let area of citySelected.areas">{{area}}</option>
+          </select>
+          <div *ngIf="area.errors && (area.dirty || area.touched)">
+            <p [hidden]="!area.errors.required" class="error">
+              Area is required
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>City</label>
+          <select class="form-control" placeholder="City" required type="text" name="city" [(ngModel)]="account.city"
+            #city="ngModel" (change)="cityChange(account.city)">
+            <option *ngFor="let city of cities" [value]="city.name">{{city?.name}}</option>
+          </select>
+          <div *ngIf="city.errors && (city.dirty || city.touched || submitted)">
+            <p [hidden]="!city.errors.required" class="error">
+              City is required
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="form-group">
+          <label>State</label>
+          <input type="text" class="form-control" placeholder="" name="state" #state="ngModel" [(ngModel)]="account.state"
+            required />
+          <div *ngIf="state.errors && (state.dirty || state.touched || submitted)">
+            <p [hidden]="!state.errors.required" class="error">
+              State is required
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Country</label>
+          <input class="form-control" placeholder="Country" name="country" [(ngModel)]="account.country" #country="ngModel"
+            disabled>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="form-group" class="mar-0">
+          <span *ngIf="issueDocument">
+            Document was uploaded: {{issueDocument.name}}
+          </span>
+          <file-upload [options]="issueOptions"></file-upload>
+        </div>
+        <div>
+          <small>Please upload company registration</small>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="form-group text-center m-t-20">
+          <button class="btn btn-info btn-lg ext-uppercase waves-effect waves-light" type="submit">Register</button>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col-md-12 font-14">
+          <a class="text-dark pull-right" routerLink="/auth/login">Already have an account?</a>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+<!-- </div> -->

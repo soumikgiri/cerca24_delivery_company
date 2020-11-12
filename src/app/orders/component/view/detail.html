@@ -1,0 +1,252 @@
+<div class="heading-ttl">
+  <h3>Order
+    <small><span><i class="fa fa-angle-right"></i> Detail</span></small>
+  </h3>
+</div>
+<div class="panel panel-default mb-4">
+  <div class="panel-heading resume-heading">
+    <div class="row">
+      <div class="col-xs-12 col-sm-3">
+        <img class="img-circle img-responsive" (click)="swipe(order?.productDetails?.mainImage?.mediumUrl)"
+          [src]="order?.productDetails?.mainImage?.mediumUrl  | defaultImage">
+      </div>
+      <div class="col-xs-12 col-sm-9">
+        <ul class="list-group">
+          <li class="list-group-item">
+            <div class="row">
+              <div class=" col-md-2">Code</div>
+              <div class=" col-md-4">{{order?.trackingCode}}</div>
+            </div>
+          </li>
+          <li class="list-group-item">
+            <div class="row">
+              <div class=" col-md-2">Created At</div>
+              <div class=" col-md-4">{{order?.createdAt | date : 'short'}}</div>
+            </div>
+          </li>
+          <li class="list-group-item">
+            <div class="row">
+              <div class=" col-md-2">Status</div>
+              <div class="col-md-4">
+                <span class="badge badge-success" *ngIf="order?.status === 'completed'">Completed</span>
+                <span class="badge badge-primary" *ngIf="order?.status === 'shipping'">Shipping</span>
+                <span class="badge badge-warning" *ngIf="order?.status === 'pending'">Pending</span>
+                <span class="badge badge-info" *ngIf="order?.status === 'progressing'">Ready To Pick Up</span>
+                <span class="badge badge-warning" *ngIf="order?.status === 'refunded'">Refunded</span>
+                <span class="badge badge-danger" *ngIf="order?.status === 'cancelled'">Cancelled</span>
+              </div>
+            </div>
+          </li>
+          <li class="list-group-item">
+            <div class="row">
+              <div class=" col-md-2">Payment Method</div>
+              <div class=" col-md-4"><span class="badge badge-warning text-uppercase">{{order?.paymentMethod}}</span>
+              </div>
+            </div>
+          </li>
+          <!-- <li class="list-group-item">
+            <div class="row">
+              <div class=" col-md-6">Quantity(s): {{order?.quantity}}</div>
+            </div>
+          </li> -->
+          <li class="list-group-item">
+            <div class="row">
+              <div class=" col-md-2">Assign Driver</div>
+              <div class=" col-md-4">
+                <ng-select
+                  [disabled]="order.status === 'completed' || order.status === 'refunded' || order.status === 'cancelled' || order.deliveryStatus !== 'processing'"
+                  [(ngModel)]="order.driverId" [items]="drivers" bindLabel="email" bindValue="id"
+                  (change)="assignDriver()"></ng-select>
+              </div>
+              <div class="col-md-6">
+                <small class="text-muted">You can not assign a driver if the delivery status is not
+                  "Processing"</small><br>
+                <small class="text-muted">You can not assign a driver if the order status is "Completed"
+                  or "Cancelled" or "Refunded"</small>
+              </div>
+            </div>
+          </li>
+          <li class="list-group-item">
+            <div class="row">
+              <div class=" col-md-2">Assign Categories</div>
+              <div class=" col-md-4">
+                <ng-select [(ngModel)]="order.categoryId" [items]="categories" bindLabel="name" bindValue="_id"
+                  (change)="updateCategory()"></ng-select>
+              </div>
+            </div>
+          </li>
+          <li class="list-group-item">
+            <div class="row">
+              <div class=" col-md-2">Update Delivery Status</div>
+              <div class=" col-md-4">
+                <select class="form-control" [(ngModel)]="order.deliveryStatus" name="deliveryStatus"
+                  (change)="updateDeliveryStatus()">
+                  <option value="processing">Processing</option>
+                  <option value="pickedUp">Picked Up</option>
+                  <option value="onTheWay">On the way</option>
+                  <option value="cancelled">Cancelled</option>
+                  <option value="postponed">Postponed</option>
+                  <option value="deliveried">Deliveried</option>
+                </select>
+              </div>
+              <div class="col-md-3">
+                <button class="btn btn-info" (click)="openMap(order)" [disabled]="order.deliveryStatus === 'deliveried' ||
+                order.deliveryStatus === 'cancelled' || order.deliveryStatus === 'postponed' || !order.driverId">
+                  Driver Position
+                </button>
+              </div>
+              <div class="col-md-3">
+                <button *ngIf="order.deliveryHistory.length > 0" class="btn btn-warning btn-order"
+                  (click)="openHistoryStatus(order)" translate>
+                  Delivery History
+                </button>
+              </div>
+            </div>
+          </li>
+          <li class="list-group-item">
+            <div class="row">
+              <div class=" col-md-12">
+                <button class="btn btn-primary" (click)="exportPDF(order._id)"> Export PDF</button>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <h3 class="mt-3">Shipping details</h3>
+    <ul class="list-group">
+      <li class="list-group-item">
+        <div class="row">
+          <div class="col-md-2">Name</div>
+          <div class="col-md-6">{{order?.firstName}} {{order?.lastName}}</div>
+        </div>
+      </li>
+      <li class="list-group-item">
+        <div class="row">
+          <div class="col-md-2">Email</div>
+          <div class="col-md-4">{{order?.email}}</div>
+          <div class="col-md-2">Phone Number</div>
+          <div class="col-md-4">{{order?.phoneNumber}}</div>
+        </div>
+      </li>
+      <li class="list-group-item">
+        <div class="row">
+          <div class="col-md-2">Address</div>
+          <div class="col-md-4">{{order?.streetAddress + ', ' + order?.state + ', ' + order?.city + ', ' +
+            order?.country}}</div>
+        </div>
+      </li>
+      <li class="list-group-item">
+        <div class="row">
+          <div class="col-md-2">Pick Up Address</div>
+          <div class="col-md-4">{{order?.pickUpAddressObj?.street}}, {{order?.pickUpAddressObj?.area}},
+            {{order?.pickUpAddressObj?.city}}</div>
+        </div>
+      </li>
+      <li class="list-group-item">
+        <div class="row">
+          <div class="col-md-2">Delivery Status</div>
+          <div class="col-md-4">
+            {{order.deliveryStatus}}
+          </div>
+        </div>
+      </li>
+      <li class="list-group-item">
+        <div class="row">
+          <div class="col-md-2">Delivery Price</div>
+          <div class="col-md-4">{{order?.deliveryPrice | currency:'ZK '}}</div>
+        </div>
+      </li>
+    </ul>
+    <h3 class="mt-3" *ngIf="order.driver"> Driver Details</h3>
+    <ul class="list-group" *ngIf="order.driver">
+      <li class="list-group-item">
+        <div class="row">
+          <div class="col-md-2">Name</div>
+          <div class="col-md-6">{{order?.driver?.firtName}} {{order?.driver?.lastName}}</div>
+        </div>
+      </li>
+      <li class="list-group-item">
+        <div class="row">
+          <div class="col-md-2">Email</div>
+          <div class="col-md-6">{{order?.driver?.email}}</div>
+        </div>
+      </li>
+      <li class="list-group-item">
+        <div class="row">
+          <div class="col-md-2">Phone Number</div>
+          <div class="col-md-6">{{order?.driver?.phoneNumber}}</div>
+        </div>
+      </li>
+      <li class="list-group-item">
+        <div class="row">
+          <div class="col-md-2">Address</div>
+          <div class="col-md-6">{{order?.driver?.address}} {{order?.driver?.state}} {{order?.driver?.city}}
+            {{order?.driver?.country}}</div>
+        </div>
+      </li>
+    </ul>
+    <h3 class="mt-3"> Product Details</h3>
+    <ul class="list-group">
+      <li class="list-group-item">
+        <div class="row">
+          <div class="col-md-2">Name</div>
+          <div class="col-md-6">{{order?.productDetails.name}}</div>
+        </div>
+      </li>
+      <!-- <li class="list-group-item">
+        <div class="row">
+          <div class="col-md-2">Price</div>
+          <div class="col-md-6">{{order?.productDetails.price | currency:'ZK '}}</div>
+        </div>
+      </li> -->
+
+      <li class="list-group-item">
+        <div class="row">
+          <div class="col-md-2">Quantity(s): </div>
+          <div class=" col-md-6">{{order?.quantity}}</div>
+        </div>
+      </li>
+      <li class="list-group-item"
+        *ngIf="order.productDetails && order.productDetails.weight && order.productDetails.weightType">
+        <div class="row">
+          <div class="col-md-2">Weight: </div>
+          <div class=" col-md-6">{{order?.productDetails?.weight}} {{order?.productDetails?.weightType}}</div>
+        </div>
+      </li>
+      <li class="list-group-item" *ngIf="order.productDetails && order.productDetails.volume">
+        <div class="row">
+          <div class="col-md-2">Volume: </div>
+          <div class=" col-md-6">{{order?.productDetails?.volume}} m&#179;</div>
+        </div>
+      </li>
+      <li class="list-group-item">
+        <div class="row">
+          <div class="col-md-2">Sale Price</div>
+          <div class="col-md-6">{{order?.productDetails?.salePrice | currency:'ZK '}}</div>
+        </div>
+      </li>
+      <li class="list-group-item">
+        <div class="row">
+          <div class="col-md-2">Description</div>
+          <div class="col-md-6" [innerHTML]="order?.productDetails.shortDescription"></div>
+        </div>
+      </li>
+    </ul>
+    <h3 class="mt-3" *ngIf="order.deliveryCategory"> Category Detail </h3>
+    <ul class="list-group" *ngIf="order.deliveryCategory">
+      <li class="list-group-item">
+        <div class="row">
+          <div class="col-md-2">Name</div>
+          <div class="col-md-6">{{order?.deliveryCategory?.name}}</div>
+        </div>
+      </li>
+      <li class="list-group-item">
+        <div class="row">
+          <div class="col-md-2">Description</div>
+          <div class="col-md-6">{{order?.deliveryCategory?.description}}</div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>

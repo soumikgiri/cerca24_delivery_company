@@ -1,0 +1,223 @@
+.pointer {
+  cursor: pointer;
+}
+
+.error {
+  color: red;
+}
+
+.upload-zone {
+  overflow: hidden;
+
+  p {
+    padding: 10px;
+  }
+
+  .my-drop-zone {
+    height: 100%;
+    position: relative;
+    border: dotted 3px lightgray;
+    height: 100px;
+  }
+}
+
+.custom-file {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+  margin-bottom: 0;
+}
+
+.logo-mid {
+  text-align: center;
+  padding: 30px;
+}
+
+.required {
+  &::after {
+    content: '*';
+    right: -10px;
+    color: red;
+  }
+}
+
+.inline-block {
+  display: inline-block;
+}
+
+.center {
+  text-align: center;
+}
+
+.m-r-20 {
+  margin-right: 20px;
+}
+
+.m-t-10 {
+  margin-top: 10px;
+}
+
+.d-flex.no-block {
+  .align-self-center {
+    align-self: unset !important;
+  }
+}
+
+.lstick {
+  width: 2px;
+  height: 30px;
+  margin-left: -20px;
+  margin-right: 18px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.inline-block {
+  display: inline-block;
+  width: 100%;
+}
+
+.text-highlight {
+  font-size: 20px;
+  margin-bottom: 15px;
+  font-weight: 600;
+  text-align: unset;
+}
+
+.flags-dropdown.dropdown-menu {
+  z-index: 1000;
+  height: 400px;
+  overflow-y: scroll;
+
+  .dropdown-item.flags {
+    span {
+      float: unset;
+    }
+  }
+}
+
+.button-inline {
+  display: inline-block;
+
+  a {
+    margin: 0 120px;
+    padding: 10px 50px;
+    font-size: 25px;
+    font-weight: 600;
+  }
+}
+
+.mw-200 {
+  min-width: 200px;
+}
+
+.mw-150 {
+  min-width: 150px;
+}
+
+.mw-100 {
+  min-width: 100px;
+}
+
+.mar-top-15 {
+  margin-top: 15px;
+}
+
+.list-cities {
+  padding: 25px 10px;
+  height: 80vh;
+  overflow: auto;
+  border: 1px #eee;
+
+  p {
+    font-size: 16px;
+    font-weight: 600;
+    text-align: center;
+
+    &:hover {
+      cursor: pointer;
+      color: #333;
+      background: #eee;
+      border-radius: 10px;
+    }
+  }
+
+  .active {
+    color: #333;
+    background: #eee;
+    padding: 3px 10px;
+    border-radius: 10px;
+  }
+}
+
+.btn-add {
+  margin-bottom: 10px;
+  padding: 3px 10px;
+  font-size: 12px;
+  font-weight: 600;
+  border: 1px solid;
+}
+
+.list-cities-header {
+  padding: 0.75rem 1.25rem;
+  margin-bottom: 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+  border-radius: calc(0.25rem - 1px) calc(0.25rem - 1px) 0 0;
+
+  .city-list-title {
+    font-size: 20px;
+    font-weight: 500;
+  }
+}
+
+.checkbox {
+  margin-bottom: unset !important;
+  height: 16px;
+}
+
+.checkbox:after {
+  content: '';
+  display: table;
+  clear: both;
+}
+
+.checkbox .cr {
+  position: relative;
+  display: inline-block;
+  border: 1px solid #a9a9a9;
+  border-radius: .25em;
+  width: 1.3em;
+  height: 1.3em;
+  float: left;
+}
+
+
+.checkbox .cr .cr-icon {
+  position: absolute;
+  font-size: .8em;
+  line-height: 0;
+  top: 50%;
+  left: 20%;
+}
+
+.checkbox input[type="checkbox"] {
+  display: none;
+}
+
+.checkbox input[type="checkbox"]+.cr>.cr-icon {
+  transform: scale(3) rotateZ(-20deg);
+  opacity: 0;
+  transition: all .3s ease-in;
+}
+
+.checkbox input[type="checkbox"]:checked+.cr>.cr-icon {
+  transform: scale(1) rotateZ(0deg);
+  opacity: 1;
+}
+
+.checkbox input[type="checkbox"]:disabled+.cr {
+  opacity: .5;
+}

@@ -1,0 +1,55 @@
+<div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom box-shadow">
+  <h5 class="my-0 mr-md-auto font-weight-normal">
+    <a [routerLink]="['/']">{{appConfig?.siteName}}</a>
+  </h5>
+  <nav class="my-2 my-md-0 mr-md-3" [hidden]="!isLogin">
+    <!-- Zones -->
+    <div class="d-inline-block">
+      <a class="btn btn-outline-primary" [routerLink]="['/zones']">Zones</a>
+    </div>
+    &nbsp;
+    <!-- Order -->
+    <div class="d-inline-block">
+      <a class="btn btn-outline-primary" [routerLink]="['/orders']">Orders</a>
+    </div>
+    &nbsp;
+    <!-- Payout -->
+    <div ngbDropdown class="d-inline-block">
+      <a class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>Payout</a>
+      <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+        <a class="dropdown-item" [routerLink]="['/payout/request']"><i class="fa fa-tags"></i> Request Payout</a>
+        <a class="dropdown-item" [routerLink]="['/payout/request/create']"><i class="fa fa-plus"></i> New Request</a>
+        <a class="dropdown-item" [routerLink]="['/payout/account']"><i class="fa fa-user"></i> Payout Account</a>
+        <a class="dropdown-item" [routerLink]="['/payout/account/create']"><i class="fa fa-plus"></i> Create Account</a>
+      </div>
+    </div>
+    &nbsp;
+    <!-- Driver -->
+    <div ngbDropdown class="d-inline-block">
+      <a class="btn btn-outline-primary" id="dropdownBasic2" ngbDropdownToggle>Driver</a>
+      <div ngbDropdownMenu aria-labelledby="dropdownBasic2">
+        <a class="dropdown-item" [routerLink]="['/drivers']"><i class="fa fa-truck"></i> List Driver</a>
+        <a class="dropdown-item" [routerLink]="['/drivers/create']"><i class="fa fa-plus"></i> Create Driver</a>
+      </div>
+    </div>
+    &nbsp;
+    <!-- Category -->
+    <div ngbDropdown class="d-inline-block">
+      <a class="btn btn-outline-primary" id="dropdownBasic3" ngbDropdownToggle>Category</a>
+      <div ngbDropdownMenu aria-labelledby="dropdownBasic3">
+        <a class="dropdown-item" [routerLink]="['/categories']"><i class="fa fa-cubes"></i> List Category</a>
+        <a class="dropdown-item" [routerLink]="['/categories/create']"><i class="fa fa-plus"></i> Create Category</a>
+      </div>
+    </div>
+  </nav>
+  <!-- <a class="btn btn-outline-primary" [routerLink]="['/auth/login']" *ngIf="!currentUser">Sign in</a> -->
+  <div ngbDropdown class="d-inline-block" *ngIf="currentUser">
+    <button class="btn btn-outline-primary" id="dropdownBasic4" ngbDropdownToggle>
+      Hello {{currentUser?.name}}
+    </button>
+    <div ngbDropdownMenu aria-labelledby="dropdownBasic4">
+      <button class="dropdown-item" [routerLink]="['/users/profile']"><i class="fa fa-user"></i> My profile</button>
+      <button class="dropdown-item" (click)="logout()"><i class="fa fa-sign-out"></i> Log out</button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,7 @@
+<app-header></app-header>
+
+<div class="container-fluid" [ngClass]="{'main-pages': !isHome}">
+  <router-outlet></router-outlet>
+  <!-- <app-footer></app-footer> -->
+  <ng2-toasty [position]="'top-right'"></ng2-toasty>
+</div>

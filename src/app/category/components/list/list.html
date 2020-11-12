@@ -1,0 +1,54 @@
+<div class="heading-ttl">
+  <h3>Category</h3>
+</div>
+<div class="card">
+  <div class="card-block table-responsive">
+    <table class="table">
+      <thead>
+        <tr>
+          <th></th>
+          <th>
+            <a>Name</a>
+          </th>
+          <th>
+            <a>Children</a>
+          </th>
+          <th>
+            <a>Created At</a>
+          </th>
+          <th>
+            Actions
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of items, let i = index">
+          <td>
+            <img [src]="item.mainImage?.thumbUrl" *ngIf="item.mainImage?.thumbUrl" width="45px" />
+          </td>
+          <td>{{item?.name}}</td>
+          <td>
+            <span class="badge badge-info" *ngFor="let child of item.children" style="margin-right: 5px">
+              <a [routerLink]="['/categories/update', child._id]" style="color: #fff">{{child.name}}</a>
+            </span>
+          </td>
+          <td>
+            <span>{{item?.createdAt | date}}</span>
+          </td>
+          <td>
+            <a [routerLink]="['/categories/update', item._id ]">
+              <i class="fa fa-pencil"></i>
+            </a>&nbsp;
+            <a (click)="remove(item, i)">
+              <i class="fa fa-trash"></i>
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="text-center">
+      <span class="badge badge-warning" *ngIf="!items.length && !isLoading">No items found</span>
+      <span class="badge badge-warning" *ngIf="isLoading">Loading...</span>
+    </div>
+  </div>
+</div>
